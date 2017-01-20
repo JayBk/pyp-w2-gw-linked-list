@@ -93,11 +93,10 @@ class LinkedList(AbstractLinkedList):
             elem = self.start.elem
             self.start = self.start.next
             return elem
-            
+        if index is None:
+            index = (len(self)-1)            
         if len(self) == 0 or index >= len(self):
             raise IndexError
-        if index is None:
-            index = (len(self)-1)
         if index == 0:
             return remove_first(self)
 # elif none of the above, just go through regular, or use index = len(self)-1
