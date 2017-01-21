@@ -19,12 +19,14 @@ class NodeTestCase(unittest.TestCase):
         self.assertEqual(Node('hello'), Node('hello'))
         self.assertEqual(Node(True), Node(True))
         self.assertEqual(Node([1, 2, 3]), Node([1, 2, 3]))
-
+        self.assertEqual(Node([5, True, 'Hi']), Node([5, True, 'Hi']))
+    
     def test_node_not_equal_value(self):
         self.assertNotEqual(Node(1), Node(2))
         self.assertNotEqual(Node('hello'), Node('bye'))
         self.assertNotEqual(Node(True), Node(False))
         self.assertNotEqual(Node([1, 2, 3]), Node([3, 2, 1]))
+        self.assertNotEqual(Node([5, True, 'Hi']), Node([5, False, 'Hi']))
 
     def test_node_equal_value_different_next_node(self):
         self.assertNotEqual(Node(1, next=Node('next1')),

@@ -33,8 +33,10 @@ class LinkedList(AbstractLinkedList):
         raise StopIteration
 
     def __getitem__(self, index):
-        if index > len(self) or self.start is None:
+        if index >= len(self) or len(self) == 0 or abs(index) > len(self):
             raise IndexError
+        elif index < 0:
+            index = len(self)-abs(index)
         for i, elem in enumerate(self):
             if i==index:
                 return elem
@@ -51,8 +53,6 @@ class LinkedList(AbstractLinkedList):
         return self
 
     def __eq__(self, other):
-        if self is None or other is None or self is None and other is None:
-            return False
         if other.start is None and self.start is None:
             return True
         elif other.start is None or self.start is None:

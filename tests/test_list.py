@@ -12,17 +12,46 @@ class LinkedListTestCase(unittest.TestCase):
         self.assertNotEqual(LinkedList([1, 2]), LinkedList([2, 1]))
         self.assertNotEqual(LinkedList([1, 2]), LinkedList([2, 1]))
         self.assertNotEqual(LinkedList([1, 2, 3]), LinkedList([1, 2]))
-
+        self.assertNotEqual(LinkedList([10, 5, "None"]), LinkedList([10, 5, "NONE"]))
+        self.assertNotEqual(LinkedList([5, 10, 15, 20, 25, 30]), LinkedList([5, 10, 15, 20, 25.00001, 30]))
+        self.assertNotEqual(LinkedList(["+++", "---", "==="]), LinkedList(["++", "--", "=="]))
+    """
     def test_get_item(self):
         self.assertEqual(LinkedList([1, 2, 3])[0], 1)
         self.assertEqual(LinkedList([1, 2, 3])[1], 2)
         self.assertEqual(LinkedList([1, 2, 3])[2], 3)
-
+        self.assertEqual(LinkedList([50, 32, 17549, True, False, "Hello World!", 372, 931])[5], "Hello World!")
+        self.assertEqual(LinkedList([5, 4, [3, 2, 1], 3, 2, [1, False, "Hello World!"], 1])[2], [3, 2, 1])
+        self.assertEqual(LinkedList([5, 4, [3, 2, 1], 3, 2, [1, False, "Hello World!"], 1])[-1], 1)
+        self.assertEqual(LinkedList([5, 4, [3, 2, 1], 3, 2, [1, False, "Hello World!"], 1])[-2], [1, False, "Hello World!"])
+        self.assertEqual(LinkedList([5, 4, 3, 2, [1, False, "Hello World!"], 1])[-6], 5)
+        self.assertEqual(LinkedList([[3, 2, 1], 3, 2])[0], [3, 2, 1])
+        self.assertEqual(LinkedList([[3, 2, 1], 3, 2])[1], 3)
         with self.assertRaises(IndexError):
             LinkedList([1, 2, 3])[4]
         with self.assertRaises(IndexError):
+            LinkedList([6, 5, 6])[3]        
+        with self.assertRaises(IndexError):
             LinkedList([])[0]
-
+        with self.assertRaises(IndexError):
+            LinkedList([9, 8, 7, 6, 5, 4, 3])[-8]
+        with self.assertRaises(IndexError):
+            LinkedList([4, 5, 4])[-4]    
+    """
+    def test_get_item(self):
+        with self.assertRaises(IndexError):
+            LinkedList([1, 2, 3])[4]
+        with self.assertRaises(IndexError):
+            LinkedList([6, 5, 6])[3] 
+        with self.assertRaises(IndexError):
+            LinkedList([])[0]
+        with self.assertRaises(IndexError):
+            LinkedList([6, 5, 6])[-4]        
+        self.assertEqual(LinkedList([7, 2, 4, 8, 3])[-2], 8)
+        self.assertEqual(LinkedList([7, 16, 9, 22, 3, 2, '@', 'Snowden.com'])[-4], 3)
+        self.assertEqual(LinkedList([3, 8, 4, 2, 7])[4], 7)
+        self.assertEqual(LinkedList([4, 7, 5, 10, True, "Snowden", "WikiLeaks"])[5], "Snowden")
+    
     def test_creation_and_equal(self):
         l1 = LinkedList([1, 2, 3])
 
@@ -187,15 +216,40 @@ class LinkedListTestCase(unittest.TestCase):
         my_list += LinkedList([1, 2])
         self.assertEqual(my_list, LinkedList([1, 2]))
 
-        my_list = LinkedList([1, 2])
-        my_list += LinkedList([3, 4])
-        self.assertEqual(my_list, LinkedList([1, 2, 3, 4]))
-
-        my_list = LinkedList([1, 2])
-        my_list += LinkedList()
-        self.assertEqual(my_list, LinkedList([1, 2]))
-
-        my_list = LinkedList()
-        my_list += LinkedList()
-        self.assertEqual(my_list.count(), 0)
-        self.assertEqual(my_list, LinkedList())
+        my_list = LinkedList([1, 2])                                        
+        my_list += LinkedList([3, 4])                                           
+        self.assertEqual(my_list, LinkedList([1, 2, 3, 4]))                     
+                                                                                
+        my_list = LinkedList([1, 2])                                            
+        my_list += LinkedList()                                                 
+        self.assertEqual(my_list, LinkedList([1, 2]))                           
+                                                                                
+        my_list = LinkedList()                                                  
+        my_list += LinkedList()                                                 
+        self.assertEqual(my_list.count(), 0)                                    
+        self.assertEqual(my_list, LinkedList())                                 
+        self.assertEqual(Node(3), Node(3))                                      
+        
+    """    
+    Original tests I added
+    def test_get_item(self):
+        self.assertEqual(LinkedList([1, 2, 3])[0], 1)
+        self.assertEqual(LinkedList([1, 2, 3])[1], 2)
+        self.assertEqual(LinkedList([1, 2, 3])[2], 3)
+        self.assertEqual(LinkedList([3, 2, 5, 8, [1, 2, 3], 1])[4], [1, 2, 3])
+        self.assertEqual(LinkedList([5, 10, "Snowden", True])[-2], "Snowden")
+        self.assertEqual(LinkedList([5, 10, "Snowden", True])[-4], 5)
+        self.assertEqual(LinkedList([3, 2, 5, 8, [1, 2, 3], 1])[4][0], 1)
+        with self.assertRaises(IndexError):
+            LinkedList([1, 2, 3])[4]
+        with self.assertRaises(IndexError):
+            LinkedList([6, 5, 6])[3]
+        with self.assertRaises(IndexError):
+            LinkedList([6, 5, 6])[-4]
+        with self.assertRaises(IndexError):
+            LinkedList([])[0]
+        with self.assertRaises(IndexError):
+            LinkedList([])[-1]
+        with self.assertRaises(IndexError):
+            LinkedList([])[-2]
+    """
